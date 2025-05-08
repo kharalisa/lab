@@ -3,11 +3,17 @@ import matplotlib.pyplot as plt
 import math
 
 # Рекурсивная реализация с мемоизацией
+def fact(k):
+    if k == 1:
+        return 1
+    else:
+        return k * fact(k - 1)
+
 def F_recursive(n, memo={}):
     if n == 1 or n == 2:
         return 1
     if n not in memo:
-        factorial_2n = math.factorial(2 * n)
+        factorial_2n = fact(2 * n)
         memo[n] = (-1 if n % 2 else 1) * (F_recursive(n - 1, memo) / factorial_2n - 4 * F_recursive(n - 2, memo))
     return memo[n]
 
