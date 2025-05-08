@@ -21,12 +21,14 @@ def F_recursive(n, memo={}):
 def F_iterative(n):
     if n == 1 or n == 2:
         return 1
-    F = [0] * (n + 1)
-    F[1], F[2] = 1, 1
+    prev2, prev1 = 1, 1
     for i in range(3, n + 1):
+        sign = (-1 if i % 2 else 1)
         factorial_2i = math.factorial(2 * i)
-        F[i] = (-1 if i % 2 else 1) * (F[i - 1] / factorial_2i - 4 * F[i - 2])
-    return F[n]
+        curr = sign * (prev1 / factorial_2i - 4 * prev2)
+        prev2, prev1 = prev1, curr
+    return prev1
+
 
 # Сравнение времени выполнения
 def compare_methods(max_n):
